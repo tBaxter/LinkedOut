@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table id="job-list">
+    <thead>
+        <tr>
+        <th colspan="2">Job</th>
+        <th>Details</th>
+        <th>Location</th>
+        <th>Posted</th>
+        <th>Salary</th>
+        <th></th>
+        </tr>
+    </thead>
+    {% include 'includes/job_list_body.html' %} 
+</table>
+
+{% endblock %}
+
+

@@ -1,0 +1,5 @@
+<tbody id="jobs-list-body" x-init>
+    {% for job, form in jobs_list %}
+        {% include 'includes/job_detail_row.html' %}
+    {% endfor %}
+</tbody>

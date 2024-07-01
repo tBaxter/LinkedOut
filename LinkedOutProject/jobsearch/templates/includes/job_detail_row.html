@@ -1,0 +1,43 @@
+<tr class="status-{{ job.status }}" id="job-{{ job.pk }}">
+    <td>
+        <form action="{% url 'update_job_status' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input
+            id="id"
+            type="hidden"
+            name="id"
+            value=" {{ job.id }}" />
+        <input type="submit" value="Update status" />
+        </form>
+    </td>
+    <td>
+        {{ job.company }}
+        <br>
+        <a href="{{ job.get_source_url }}">{{ job.title }}</a>
+        <form action="{% url 'reject_job' %}" method="post" x-target="job-{{ job.pk }}">
+            {% csrf_token %}
+            <input
+              id="id"
+              type="hidden"
+              name="id"
+              value=" {{ job.id }}" />
+            <input type="submit" value="Reject" />
+          </form>
+    </td>
+    {% if job.details %}
+        <td>
+            <p>{{ job.details|truncatewords:50 }}</p>
+            <a href="{{ job.get_absolute_url }}">More</a>
+        </td>
+    {% else %}
+        <td>
+            <form x-init x-target="job-{{ job.pk }}" method="get" action="{% url 'fetch_job' %}">
+                <button name="pk" value="{{ job.pk }}"">Get job details</button>
+            </form>
+        </td>
+    {% endif %}
+    <td>{{ job.location }}</td>
+    <td>{{ job.pub_date|default_if_none:"" }}</td>
+    <td>{{ job.salary|default_if_none:"" }}</td>
+</tr>
